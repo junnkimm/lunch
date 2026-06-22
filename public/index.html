@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>점심 대시보드</title>
+  <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+  <header>
+    <h1>🍽️ 점심 참석 현황</h1>
+    <span class="date-badge" id="today-date"></span>
+  </header>
+
+  <main>
+    <!-- 오늘 현황 -->
+    <div class="section">
+      <div class="section-title">
+        📅 오늘 현황
+        <span class="refresh-info" id="last-refresh"></span>
+      </div>
+
+      <div class="today-summary">
+        <div class="stat-card">
+          <div class="num num-green" id="cnt-attend">-</div>
+          <div class="label">참석</div>
+        </div>
+        <div class="stat-card">
+          <div class="num num-red" id="cnt-absent">-</div>
+          <div class="label">불참</div>
+        </div>
+        <div class="stat-card">
+          <div class="num num-gray" id="cnt-none">-</div>
+          <div class="label">미응답</div>
+        </div>
+      </div>
+
+      <div class="card" id="today-content">
+        <div class="empty-state">불러오는 중...</div>
+      </div>
+    </div>
+
+    <!-- 최근 기록 -->
+    <div class="section">
+      <div class="section-title">📋 최근 참석 기록</div>
+      <div class="card" id="history-content">
+        <div class="empty-state">불러오는 중...</div>
+      </div>
+    </div>
+
+    <!-- 팀원 통계 -->
+    <div class="section">
+      <div class="section-title">👥 팀원별 참석률 (최근 30일)</div>
+      <div class="card" style="padding:20px">
+        <div class="member-stats" id="member-stats">
+          <div class="empty-state">불러오는 중...</div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- 상세 모달 -->
+  <div class="modal-overlay" id="modal">
+    <div class="modal">
+      <div class="modal-header">
+        <h2 id="modal-title"></h2>
+        <button class="modal-close" onclick="closeModal()">✕</button>
+      </div>
+      <div class="modal-body" id="modal-body"></div>
+    </div>
+  </div>
+
+  <script>
+    // 헤더 날짜 표시 (app.js의 WEEKDAYS와 중복 방지 - Intl API 직접 사용)
+    (function() {
+      const now = new Date();
+      const ymd = now.toLocaleDateString('ko-KR', {timeZone:'Asia/Seoul', year:'numeric', month:'2-digit', day:'2-digit'});
+      const wd  = now.toLocaleDateString('ko-KR', {timeZone:'Asia/Seoul', weekday:'short'});
+      const [y, m, d] = ymd.replace(/\./g,'').trim().split(' ');
+      document.getElementById('today-date').textContent = `${y}.${m}.${d} (${wd})`;
+    })();
+  </script>
+  <script src="/app.js"></script>
+</body>
+</html>

@@ -1,0 +1,21 @@
+{
+  "name": "team-lunch-tracker",
+  "version": "1.0.0",
+  "description": "팀 점심 참석 관리 시스템",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node --watch server.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "dependencies": {
+    "better-sqlite3": "^12.11.1",
+    "dotenv": "^17.4.2",
+    "express": "^5.2.1",
+    "node-cron": "^4.5.0",
+    "nodemailer": "^9.0.1"
+  }
+}
