@@ -82,7 +82,7 @@ router.get('/', (req, res) => {
 
   // 마감 체크
   const minuteNow = getCurrentHourSeoul();
-  const deadline = 16 * 60 + 44; // 16:44 마감 (테스트용)
+  const deadline = 16 * 60 + 54; // 16:54 마감 (테스트용)
   if (info.locked || minuteNow >= deadline) {
     const statusList = getStatusList(info.lunch_day_id);
     return res.send(renderPage('마감', buildClosedPage(info, statusList)));
@@ -124,7 +124,7 @@ router.post('/menu', express.urlencoded({ extended: false }), (req, res) => {
   if (!info) return res.status(404).send('유효하지 않은 링크');
 
   const minuteNow = getCurrentHourSeoul();
-  if (info.locked || minuteNow >= 16 * 60 + 44) {
+  if (info.locked || minuteNow >= 16 * 60 + 54) {
     return res.send(renderPage('마감', `
       <div class="card-header" style="background:#6b7280"><h1>마감되었습니다</h1></div>
       <div class="card-body"><p>오전 11시 이후에는 메뉴를 추천할 수 없습니다.</p></div>`));
