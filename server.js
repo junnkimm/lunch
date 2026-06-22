@@ -26,8 +26,9 @@ function adminAuth(req, res, next) {
 }
 
 app.post('/admin/trigger-morning', adminAuth, (req, res) => {
-  res.json({ ok: true, message: '이메일 발송 시작됨 (백그라운드)' });
-  runMorningJob().catch(err => console.error('[admin] morning 잡 오류:', err.message));
+  const force = req.query.force === 'true';
+  res.json({ ok: true, message: `이메일 발송 시작됨 (백그라운드)${force ? ' [강제]' : ''}` });
+  runMorningJob({ force }).catch(err => console.error('[admin] morning 잡 오류:', err.message));
 });
 
 app.post('/admin/trigger-results', adminAuth, (req, res) => {
