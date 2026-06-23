@@ -82,7 +82,7 @@ router.get('/', (req, res) => {
 
   // 마감 체크
   const minuteNow = getCurrentHourSeoul();
-  const deadline = 15 * 60 + 59; // 15:59 마감 (테스트)
+  const deadline = 11 * 60; // 11:00 마감
   if (info.locked || minuteNow >= deadline) {
     const statusList = getStatusList(info.lunch_day_id);
     return res.send(renderPage('마감', buildClosedPage(info, statusList)));
@@ -124,10 +124,10 @@ router.post('/menu', express.urlencoded({ extended: false }), (req, res) => {
   if (!info) return res.status(404).send('유효하지 않은 링크');
 
   const minuteNow = getCurrentHourSeoul();
-  if (info.locked || minuteNow >= 15 * 60 + 59) {
+  if (info.locked || minuteNow >= 11 * 60) {
     return res.send(renderPage('마감', `
       <div class="card-header" style="background:#6b7280"><h1>마감되었습니다</h1></div>
-      <div class="card-body"><p>오후 3:59 이후에는 메뉴를 추천할 수 없습니다.</p></div>`));
+      <div class="card-body"><p>오전 11시 이후에는 메뉴를 추천할 수 없습니다.</p></div>`));
   }
 
   const menuText = (menu || '').trim().slice(0, 100);
@@ -246,7 +246,7 @@ function buildClosedPage(info, statusList) {
   return `
     <div class="card-header" style="background:#6b7280">
       <h1>⏰ 마감되었습니다</h1>
-      <p>오후 3:59 이후에는 응답을 변경할 수 없습니다.</p>
+      <p>오전 11시 이후에는 응답을 변경할 수 없습니다.</p>
     </div>
     <div class="card-body">
       <p style="font-size:14px;font-weight:600;color:#374151;margin-bottom:8px;">오늘 최종 현황</p>
