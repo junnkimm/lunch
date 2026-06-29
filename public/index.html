@@ -3,12 +3,20 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>점심 대시보드</title>
+  <title>뭉살흩죽 · 점심 대시보드</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Black+Han+Sans&display=swap" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.css" rel="stylesheet">
   <link rel="stylesheet" href="/style.css">
 </head>
 <body>
   <header>
-    <h1>🍽️ 점심 참석 현황</h1>
+    <div class="brand-mark">🍱</div>
+    <div class="brand-text">
+      <div class="wordmark">뭉<span class="g">살</span>흩<span class="r">죽</span></div>
+      <div class="tagline">뭉치면 살고 흩어지면 죽는다 — 오늘 점심도 다 같이!</div>
+    </div>
     <span class="date-badge" id="today-date"></span>
   </header>
 
@@ -42,7 +50,7 @@
 
     <!-- 최근 기록 -->
     <div class="section">
-      <div class="section-title">📋 최근 참석 기록</div>
+      <div class="section-title">📋 최근 참석 기록 <span style="font-size:12px;font-weight:600;color:var(--faint)">최근 7일</span></div>
       <div class="card" id="history-content">
         <div class="empty-state">불러오는 중...</div>
       </div>

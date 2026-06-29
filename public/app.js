@@ -25,8 +25,12 @@ async function loadToday() {
     `${now.getHours().toString().padStart(2,'0')}:${now.getMinutes().toString().padStart(2,'0')} 갱신`;
 
   if (!data.lunchDay) {
-    document.getElementById('today-content').innerHTML =
-      `<div class="empty-state">오늘은 점심 세션이 없습니다.<br>(공휴일이거나 아직 9시 이메일이 발송되지 않았습니다)</div>`;
+    document.getElementById('today-content').innerHTML = `
+      <div class="empty-hero">
+        <div class="em-emoji">🍱</div>
+        <div class="em-word">뭉<span class="g">살</span>흩<span class="r">죽</span></div>
+        <div class="em-sub">오늘은 점심 세션이 없습니다.<br>공휴일이거나 아직 오전 9시 알림이 발송되지 않았어요.</div>
+      </div>`;
     ['cnt-attend', 'cnt-absent', 'cnt-none'].forEach(id => document.getElementById(id).textContent = '-');
     return;
   }
@@ -90,7 +94,7 @@ async function loadHistory() {
     const dayType = isFriday
       ? '<span class="badge badge-friday" style="font-size:11px">금</span>'
       : '<span class="badge badge-gray" style="font-size:11px">평일</span>';
-    const attend = isFriday ? '<span style="color:#9ca3af">-</span>' : d.attending;
+    const attend = d.attending;
     const absent = isFriday ? '<span style="color:#9ca3af">-</span>' : d.absent;
     return `<tr onclick="showDetail('${d.date}')">
       <td>${formatDate(d.date)}</td>
@@ -113,7 +117,7 @@ async function loadHistory() {
 async function loadMemberStats() {
   const data = await fetch('/api/members').then(r => r.json());
   const rows = data.map(m => {
-    const total = m.total_weekdays || 0;
+    const total = m.total || 0;
     const pct = total > 0 ? Math.round((m.attended / total) * 100) : 0;
     return `<div class="stat-row">
       <span class="name">${m.name}</span>

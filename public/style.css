@@ -1,190 +1,245 @@
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
+/* ── 뭉살흩죽 디자인 시스템 ─────────────────────────────── */
 :root {
-  --blue: #3b82f6;
-  --blue-dark: #2563eb;
-  --green: #22c55e;
-  --red: #ef4444;
-  --amber: #f59e0b;
-  --gray-50: #f9fafb;
-  --gray-100: #f3f4f6;
-  --gray-200: #e5e7eb;
-  --gray-400: #9ca3af;
-  --gray-600: #4b5563;
-  --gray-700: #374151;
-  --gray-900: #111827;
-  --radius: 10px;
-  --shadow: 0 2px 10px rgba(0,0,0,.07);
+  --brand: #2B5BD7;
+  --brand-light: #4A7BF7;
+  --brand-grad: linear-gradient(135deg, #4A7BF7, #2B5BD7);
+  --attend: #1FA85A;        /* 뭉살 = 참석 */
+  --attend-bg: #e7f6ee;
+  --absent: #E54A4D;        /* 흩죽 = 불참 */
+  --absent-bg: #fdebeb;
+  --friday: #FF7A3D;        /* 금요일 */
+  --friday-bg: #fff1e8;
+
+  --bg: #F4F6FB;
+  --card: #ffffff;
+  --line: #eaeef6;
+  --ink: #2b3550;
+  --text: #46506a;
+  --mut: #6b7280;
+  --faint: #9aa3b5;
+
+  --radius: 16px;
+  --radius-sm: 12px;
+  --shadow: 0 6px 26px rgba(31,42,68,.08);
+  --shadow-sm: 0 3px 14px rgba(31,42,68,.06);
 }
 
 body {
-  font-family: 'Apple SD Gothic Neo', 'Noto Sans KR', sans-serif;
-  background: #f0f4f8;
-  color: var(--gray-700);
+  font-family: 'Pretendard', 'Apple SD Gothic Neo', 'Noto Sans KR', sans-serif;
+  background: var(--bg);
+  color: var(--text);
   min-height: 100vh;
+  -webkit-font-smoothing: antialiased;
 }
 
+/* ── 헤더 로크업 (디자인 자산 ⑤) ───────────────────────── */
 header {
-  background: var(--blue);
-  padding: 18px 24px;
+  max-width: 920px;
+  margin: 0 auto;
+  padding: 26px 16px 6px;
   display: flex;
   align-items: center;
-  justify-content: space-between;
-  box-shadow: 0 2px 6px rgba(0,0,0,.12);
+  gap: 18px;
 }
-header h1 { color: #fff; font-size: 18px; }
+.brand-mark {
+  width: 60px; height: 60px;
+  border-radius: 16px;
+  background: var(--brand-grad);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 32px;
+  box-shadow: 0 6px 16px rgba(43,91,215,.30);
+  flex: none;
+}
+.brand-text { flex: 1; min-width: 0; }
+.wordmark {
+  font-family: 'Black Han Sans', sans-serif;
+  font-size: 34px; line-height: 1;
+  color: var(--brand);
+  letter-spacing: .01em;
+}
+.wordmark .g { color: var(--attend); }   /* 살 */
+.wordmark .r { color: var(--absent); }   /* 죽 */
+.tagline { font-size: 13px; color: var(--mut); margin-top: 7px; }
 header .date-badge {
-  background: rgba(255,255,255,.18);
-  color: #fff;
-  font-size: 13px;
-  padding: 4px 12px;
-  border-radius: 20px;
+  background: #EAF1FE;
+  color: var(--brand);
+  font-size: 13px; font-weight: 700;
+  padding: 7px 14px;
+  border-radius: 999px;
+  flex: none;
 }
 
-main { max-width: 900px; margin: 0 auto; padding: 24px 16px; }
+main { max-width: 920px; margin: 0 auto; padding: 18px 16px 60px; }
 
-.section { margin-bottom: 28px; }
+.section { margin-bottom: 30px; }
 .section-title {
-  font-size: 15px;
-  font-weight: 700;
-  color: var(--gray-700);
-  margin-bottom: 12px;
+  font-size: 16px;
+  font-weight: 800;
+  color: var(--ink);
+  margin-bottom: 14px;
   display: flex;
   align-items: center;
   gap: 8px;
 }
 
 .card {
-  background: #fff;
+  background: var(--card);
+  border: 1px solid var(--line);
   border-radius: var(--radius);
   box-shadow: var(--shadow);
   overflow: hidden;
 }
 
-/* 오늘 현황 */
+/* ── 오늘 현황 요약 카드 ───────────────────────────────── */
 .today-summary {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 12px;
+  gap: 14px;
   margin-bottom: 16px;
 }
 .stat-card {
-  background: #fff;
-  border-radius: var(--radius);
-  padding: 16px;
-  box-shadow: var(--shadow);
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-sm);
+  padding: 18px 16px;
+  box-shadow: var(--shadow-sm);
   text-align: center;
+  position: relative;
 }
-.stat-card .num { font-size: 32px; font-weight: 800; }
-.stat-card .label { font-size: 12px; color: var(--gray-400); margin-top: 4px; }
-.num-green { color: var(--green); }
-.num-red { color: var(--red); }
-.num-gray { color: var(--gray-400); }
+.stat-card .num { font-size: 36px; font-weight: 800; line-height: 1; }
+.stat-card .label { font-size: 12px; color: var(--faint); margin-top: 8px; font-weight: 600; }
+.num-green { color: var(--attend); }
+.num-red { color: var(--absent); }
+.num-gray { color: var(--faint); }
 
+/* ── 테이블 ───────────────────────────────────────────── */
 .member-table { width: 100%; border-collapse: collapse; }
 .member-table th {
-  padding: 10px 16px;
+  padding: 12px 18px;
   text-align: left;
   font-size: 12px;
-  font-weight: 600;
-  color: var(--gray-400);
-  background: var(--gray-50);
-  border-bottom: 1px solid var(--gray-200);
+  font-weight: 700;
+  color: var(--faint);
+  background: #fafbfe;
+  border-bottom: 1px solid var(--line);
 }
 .member-table td {
-  padding: 12px 16px;
+  padding: 13px 18px;
   font-size: 14px;
-  border-bottom: 1px solid var(--gray-200);
+  color: var(--text);
+  border-bottom: 1px solid var(--line);
 }
+.member-table td strong { color: var(--ink); }
 .member-table tr:last-child td { border-bottom: none; }
 
+/* ── 배지 (참석=초록 / 불참=빨강 / 금요일=주황) ─────────── */
 .badge {
   display: inline-flex;
   align-items: center;
   gap: 4px;
-  padding: 3px 10px;
-  border-radius: 12px;
+  padding: 4px 11px;
+  border-radius: 999px;
   font-size: 12px;
-  font-weight: 600;
+  font-weight: 700;
 }
-.badge-green { background: #dcfce7; color: #166534; }
-.badge-red { background: #fee2e2; color: #991b1b; }
-.badge-gray { background: var(--gray-100); color: var(--gray-600); }
-.badge-amber { background: #fef3c7; color: #92400e; }
-.badge-friday { background: #fef9c3; color: #713f12; }
+.badge-green { background: var(--attend-bg); color: var(--attend); }
+.badge-red { background: var(--absent-bg); color: var(--absent); }
+.badge-gray { background: #eef1f6; color: var(--mut); }
+.badge-amber { background: var(--friday-bg); color: #d2602a; }
+.badge-friday { background: var(--friday-bg); color: #d2602a; }
 
 .menu-chip {
   display: inline-block;
-  background: #eff6ff;
-  color: #1e40af;
+  background: #EAF1FE;
+  color: var(--brand);
   font-size: 12px;
-  padding: 2px 8px;
-  border-radius: 10px;
+  padding: 2px 9px;
+  border-radius: 999px;
   margin-left: 6px;
 }
 
-/* 히스토리 */
+/* ── 히스토리 ─────────────────────────────────────────── */
 .history-table { width: 100%; border-collapse: collapse; }
 .history-table th {
-  padding: 10px 14px;
+  padding: 12px 16px;
   text-align: left;
   font-size: 12px;
-  color: var(--gray-400);
-  background: var(--gray-50);
-  border-bottom: 1px solid var(--gray-200);
+  font-weight: 700;
+  color: var(--faint);
+  background: #fafbfe;
+  border-bottom: 1px solid var(--line);
 }
 .history-table td {
-  padding: 11px 14px;
+  padding: 12px 16px;
   font-size: 13px;
-  border-bottom: 1px solid var(--gray-200);
+  border-bottom: 1px solid var(--line);
   cursor: pointer;
+  color: var(--text);
 }
 .history-table tr:last-child td { border-bottom: none; }
-.history-table tr:hover td { background: var(--gray-50); }
+.history-table tr:hover td { background: #f7f9fd; }
 
-/* 팀원 통계 */
-.member-stats { display: flex; flex-direction: column; gap: 10px; }
-.stat-row { display: flex; align-items: center; gap: 12px; }
-.stat-row .name { width: 60px; font-size: 13px; font-weight: 600; color: var(--gray-700); }
-.bar-track { flex: 1; height: 10px; background: var(--gray-100); border-radius: 5px; overflow: hidden; }
-.bar-fill { height: 100%; background: var(--blue); border-radius: 5px; transition: width .4s ease; }
-.stat-row .pct { width: 40px; font-size: 12px; color: var(--gray-600); text-align: right; }
+/* ── 팀원 통계 ────────────────────────────────────────── */
+.member-stats { display: flex; flex-direction: column; gap: 14px; }
+.stat-row { display: flex; align-items: center; gap: 14px; }
+.stat-row .name { width: 64px; font-size: 13px; font-weight: 700; color: var(--ink); }
+.bar-track { flex: 1; height: 12px; background: #eef1f6; border-radius: 999px; overflow: hidden; }
+.bar-fill { height: 100%; background: var(--brand-grad); border-radius: 999px; transition: width .5s ease; }
+.stat-row .pct { width: 44px; font-size: 13px; font-weight: 700; color: var(--brand); text-align: right; }
 
-/* 상세 모달 */
+/* ── 상세 모달 ────────────────────────────────────────── */
 .modal-overlay {
   display: none;
   position: fixed; inset: 0;
-  background: rgba(0,0,0,.4);
+  background: rgba(31,42,68,.45);
   z-index: 100;
   align-items: center;
   justify-content: center;
+  padding: 16px;
 }
 .modal-overlay.open { display: flex; }
 .modal {
   background: #fff;
-  border-radius: 12px;
-  width: 90%;
+  border-radius: var(--radius);
+  width: 100%;
   max-width: 480px;
   max-height: 80vh;
   overflow-y: auto;
-  box-shadow: 0 8px 32px rgba(0,0,0,.18);
+  box-shadow: 0 20px 50px rgba(31,42,68,.28);
 }
 .modal-header {
   padding: 20px 24px 16px;
-  border-bottom: 1px solid var(--gray-200);
+  border-bottom: 1px solid var(--line);
   display: flex;
   align-items: center;
   justify-content: space-between;
 }
-.modal-header h2 { font-size: 16px; }
-.modal-close { background: none; border: none; font-size: 20px; cursor: pointer; color: var(--gray-400); }
+.modal-header h2 { font-size: 17px; color: var(--ink); }
+.modal-close { background: none; border: none; font-size: 20px; cursor: pointer; color: var(--faint); }
 .modal-body { padding: 20px 24px; }
 
-/* 상태 표시 */
-.refresh-info { font-size: 12px; color: var(--gray-400); margin-left: auto; }
-.empty-state { padding: 32px; text-align: center; color: var(--gray-400); font-size: 14px; }
+/* ── 상태 표시 ────────────────────────────────────────── */
+.refresh-info { font-size: 12px; color: var(--faint); margin-left: auto; font-weight: 600; }
+.empty-state { padding: 40px 28px; text-align: center; color: var(--faint); font-size: 14px; line-height: 1.6; }
+
+/* 빈 상태 카드 (디자인 자산 ④ 느낌) */
+.empty-hero {
+  padding: 44px 28px; text-align: center;
+}
+.empty-hero .em-emoji { font-size: 40px; }
+.empty-hero .em-word {
+  font-family: 'Black Han Sans', sans-serif;
+  font-size: 40px; color: var(--brand); margin: 12px 0 8px;
+}
+.empty-hero .em-word .g { color: var(--attend); }
+.empty-hero .em-word .r { color: var(--absent); }
+.empty-hero .em-sub { font-size: 14px; color: var(--mut); line-height: 1.6; }
 
 @media (max-width: 600px) {
-  .today-summary { grid-template-columns: repeat(3, 1fr); gap: 8px; }
-  .stat-card .num { font-size: 24px; }
+  .today-summary { gap: 10px; }
+  .stat-card .num { font-size: 28px; }
+  header { flex-wrap: wrap; }
+  .wordmark { font-size: 30px; }
 }

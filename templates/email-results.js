@@ -1,4 +1,5 @@
 const { formatDateKo } = require('../lib/holidays');
+const { bannerHtml } = require('./_banner');
 
 // responses: [{ member_name, status, menu_suggestion }]
 function buildResultsEmail(dateStr, dayType, responses) {
@@ -14,18 +15,15 @@ function buildResultsEmail(dateStr, dayType, responses) {
     return `<!DOCTYPE html>
 <html lang="ko">
 <head><meta charset="UTF-8"></head>
-<body style="margin:0;padding:0;background:#f5f5f5;font-family:'Apple SD Gothic Neo',sans-serif;">
-  <div style="max-width:560px;margin:32px auto;background:#fff;border-radius:12px;overflow:hidden;box-shadow:0 2px 8px rgba(0,0,0,.08);">
-    <div style="background:#f59e0b;padding:24px 32px;">
-      <h1 style="margin:0;color:#fff;font-size:20px;">🍽️ 금요일 점심 메뉴 추천 모음</h1>
-      <p style="margin:6px 0 0;color:#fef3c7;font-size:14px;">${dateLabel}</p>
-    </div>
+<body style="margin:0;padding:0;background:#F4F6FB;font-family:'Pretendard','Apple SD Gothic Neo',sans-serif;">
+  <div style="max-width:560px;margin:32px auto;background:#fff;border-radius:16px;overflow:hidden;box-shadow:0 6px 26px rgba(31,42,68,.10);">
+    ${bannerHtml('🍽️ 금요일 점심 메뉴 추천 모음', dateLabel, { grad: 'linear-gradient(120deg,#FF9F52 0%,#FF7A3D 100%)', emoji: '🍙' })}
     <div style="padding:24px 32px;">
-      <ul style="margin:0;padding:0 0 0 20px;">${menuHtml}</ul>
-      <p style="margin:24px 0 0;font-size:15px;color:#374151;">즐거운 점심 되세요! 🎉</p>
+      <ul style="margin:0;padding:0 0 0 20px;color:#46506a;">${menuHtml}</ul>
+      <p style="margin:24px 0 0;font-size:15px;color:#46506a;">즐거운 점심 되세요! 🎉</p>
     </div>
-    <div style="padding:16px 32px;background:#f9fafb;text-align:center;">
-      <a href="${host}" style="font-size:13px;color:#6b7280;text-decoration:none;">대시보드 보기</a>
+    <div style="padding:16px 32px;background:#fafbfe;text-align:center;border-top:1px solid #eaeef6;">
+      <a href="${host}" style="font-size:13px;color:#2B5BD7;font-weight:700;text-decoration:none;">📊 대시보드 보기</a>
     </div>
   </div>
 </body>
@@ -65,25 +63,22 @@ function buildResultsEmail(dateStr, dayType, responses) {
   return `<!DOCTYPE html>
 <html lang="ko">
 <head><meta charset="UTF-8"></head>
-<body style="margin:0;padding:0;background:#f5f5f5;font-family:'Apple SD Gothic Neo',sans-serif;">
-  <div style="max-width:560px;margin:32px auto;background:#fff;border-radius:12px;overflow:hidden;box-shadow:0 2px 8px rgba(0,0,0,.08);">
-    <div style="background:#3b82f6;padding:24px 32px;">
-      <h1 style="margin:0;color:#fff;font-size:20px;">📋 오늘 점심 결과</h1>
-      <p style="margin:6px 0 0;color:#bfdbfe;font-size:14px;">${dateLabel} · 참석 ${attending.length}명 / 5명</p>
-    </div>
+<body style="margin:0;padding:0;background:#F4F6FB;font-family:'Pretendard','Apple SD Gothic Neo',sans-serif;">
+  <div style="max-width:560px;margin:32px auto;background:#fff;border-radius:16px;overflow:hidden;box-shadow:0 6px 26px rgba(31,42,68,.10);">
+    ${bannerHtml(`📋 오늘 점심 결과 · 참석 ${attending.length}명 / 5명`, dateLabel)}
     <div style="padding:24px 32px;">
-      <h3 style="margin:0 0 12px;font-size:15px;color:#374151;">✅ 참석 (${attending.length}명)</h3>
-      <table style="width:100%;border-collapse:collapse;border:1px solid #e5e7eb;border-radius:8px;overflow:hidden;margin-bottom:16px;">
+      <h3 style="margin:0 0 12px;font-size:15px;color:#2b3550;">✅ 참석 (${attending.length}명)</h3>
+      <table style="width:100%;border-collapse:collapse;border:1px solid #eaeef6;border-radius:10px;overflow:hidden;margin-bottom:16px;">
         <tbody>${attendRows}</tbody>
       </table>
-      <h3 style="margin:0 0 12px;font-size:15px;color:#374151;">❌ 불참 (${absent.length + noResponse.length}명)</h3>
-      <table style="width:100%;border-collapse:collapse;border:1px solid #e5e7eb;border-radius:8px;overflow:hidden;">
+      <h3 style="margin:0 0 12px;font-size:15px;color:#2b3550;">❌ 불참 (${absent.length + noResponse.length}명)</h3>
+      <table style="width:100%;border-collapse:collapse;border:1px solid #eaeef6;border-radius:10px;overflow:hidden;">
         <tbody>${absentRows}</tbody>
       </table>
       ${menuSection}
     </div>
-    <div style="padding:16px 32px;background:#f9fafb;text-align:center;">
-      <a href="${host}" style="font-size:13px;color:#6b7280;text-decoration:none;">대시보드 보기</a>
+    <div style="padding:16px 32px;background:#fafbfe;text-align:center;border-top:1px solid #eaeef6;">
+      <a href="${host}" style="font-size:13px;color:#2B5BD7;font-weight:700;text-decoration:none;">📊 대시보드 보기</a>
     </div>
   </div>
 </body>

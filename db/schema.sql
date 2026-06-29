@@ -27,7 +27,7 @@ CREATE TABLE IF NOT EXISTS responses (
   member_id       INTEGER NOT NULL REFERENCES members(id),
   status          TEXT CHECK(status IN ('참석', '불참')),
   menu_suggestion TEXT,
-  responded_at    TEXT NOT NULL DEFAULT (datetime('now', 'localtime')),
+  responded_at    TEXT NOT NULL DEFAULT (datetime('now', '+9 hours')),
   UNIQUE(lunch_day_id, member_id)
 );
 

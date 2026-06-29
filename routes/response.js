@@ -21,37 +21,62 @@ function renderPage(title, bodyHtml) {
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
-  <title>${title}</title>
+  <title>${title} · 뭉살흩죽</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Black+Han+Sans&display=swap" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.css" rel="stylesheet">
   <style>
     *{box-sizing:border-box;margin:0;padding:0}
-    body{font-family:'Apple SD Gothic Neo',sans-serif;background:#f5f5f5;min-height:100vh;display:flex;align-items:center;justify-content:center;padding:20px}
-    .card{background:#fff;border-radius:12px;box-shadow:0 2px 12px rgba(0,0,0,.08);max-width:480px;width:100%;overflow:hidden}
-    .card-header{padding:24px 28px;background:#3b82f6;color:#fff}
-    .card-header h1{font-size:20px;margin-bottom:4px}
-    .card-header p{font-size:13px;color:#bfdbfe}
+    :root{--brand:#2B5BD7;--attend:#1FA85A;--absent:#E54A4D;--friday:#FF7A3D;--line:#eaeef6;--ink:#2b3550;--text:#46506a;--mut:#6b7280;--faint:#9aa3b5}
+    body{font-family:'Pretendard','Apple SD Gothic Neo',sans-serif;background:#F4F6FB;min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:24px 16px;color:var(--text);-webkit-font-smoothing:antialiased}
+    .wrap{width:100%;max-width:480px}
+    .brand-bar{display:flex;align-items:center;gap:12px;margin-bottom:14px;padding-left:4px}
+    .brand-mark{width:42px;height:42px;border-radius:12px;background:linear-gradient(135deg,#4A7BF7,#2B5BD7);display:flex;align-items:center;justify-content:center;font-size:23px;box-shadow:0 5px 14px rgba(43,91,215,.3);flex:none}
+    .wordmark{font-family:'Black Han Sans',sans-serif;font-size:26px;line-height:1;color:var(--brand)}
+    .wordmark .g{color:var(--attend)}.wordmark .r{color:var(--absent)}
+    .card{background:#fff;border:1px solid var(--line);border-radius:18px;box-shadow:0 8px 30px rgba(31,42,68,.10);width:100%;overflow:hidden}
+    .card-header{padding:26px 28px;background:var(--brand);color:#fff}
+    .card-header h1{font-size:20px;margin-bottom:5px;line-height:1.35;font-weight:800}
+    .card-header p{font-size:13px;color:rgba(255,255,255,.85)}
     .card-body{padding:24px 28px}
-    .badge{display:inline-block;padding:4px 12px;border-radius:20px;font-size:13px;font-weight:600}
-    .badge-green{background:#dcfce7;color:#166534}
-    .badge-red{background:#fee2e2;color:#991b1b}
-    .badge-gray{background:#f3f4f6;color:#374151}
-    .status-list{margin-top:16px;border:1px solid #e5e7eb;border-radius:8px;overflow:hidden}
-    .status-item{display:flex;align-items:center;justify-content:space-between;padding:10px 14px;border-bottom:1px solid #e5e7eb;font-size:14px}
+    .badge{display:inline-flex;align-items:center;gap:4px;padding:4px 12px;border-radius:999px;font-size:13px;font-weight:700}
+    .badge-green{background:#e7f6ee;color:#1FA85A}
+    .badge-red{background:#fdebeb;color:#E54A4D}
+    .badge-gray{background:#eef1f6;color:#6b7280}
+    .badge-amber{background:#fff1e8;color:#d2602a}
+    .status-list{margin-top:14px;border:1px solid var(--line);border-radius:12px;overflow:hidden}
+    .status-item{display:flex;align-items:center;justify-content:space-between;padding:11px 16px;border-bottom:1px solid var(--line);font-size:14px;color:var(--ink)}
     .status-item:last-child{border-bottom:none}
     .form-group{margin-top:20px}
-    .form-group label{display:block;font-size:14px;font-weight:600;color:#374151;margin-bottom:8px}
-    .form-group input[type=text]{width:100%;padding:10px 14px;border:1px solid #d1d5db;border-radius:8px;font-size:14px;outline:none}
-    .form-group input[type=text]:focus{border-color:#3b82f6;box-shadow:0 0 0 3px rgba(59,130,246,.15)}
-    .btn{display:block;width:100%;padding:12px;background:#3b82f6;color:#fff;border:none;border-radius:8px;font-size:15px;font-weight:600;cursor:pointer;margin-top:12px}
-    .btn:hover{background:#2563eb}
-    .btn-amber{background:#f59e0b}.btn-amber:hover{background:#d97706}
-    .notice{margin-top:14px;padding:12px 14px;background:#fef9c3;border-radius:8px;font-size:13px;color:#713f12;line-height:1.6}
-    .success-icon{font-size:48px;text-align:center;margin-bottom:16px}
+    .form-group label{display:block;font-size:14px;font-weight:700;color:var(--ink);margin-bottom:8px}
+    .form-group input[type=text]{width:100%;padding:11px 14px;border:1px solid #d6dbe6;border-radius:10px;font-size:14px;outline:none;font-family:inherit}
+    .form-group input[type=text]:focus{border-color:var(--brand);box-shadow:0 0 0 3px rgba(43,91,215,.15)}
+    .btn{display:block;width:100%;padding:13px;background:var(--brand);color:#fff;border:none;border-radius:10px;font-size:15px;font-weight:700;cursor:pointer;margin-top:12px;text-decoration:none;text-align:center}
+    .btn:hover{filter:brightness(1.05)}
+    .btn-amber{background:var(--friday)}
+    .btn-dash{display:flex;align-items:center;justify-content:center;gap:7px;width:100%;margin-top:20px;padding:13px;border-radius:10px;background:#EAF1FE;color:var(--brand);font-size:14px;font-weight:700;text-decoration:none;border:1px solid #d8e4fb}
+    .btn-dash:hover{background:#dde9fd}
+    .sub-label{font-size:13px;font-weight:700;color:var(--ink);margin-top:20px;margin-bottom:2px}
+    .foot{margin-top:16px;text-align:center;font-size:12px;color:var(--faint)}
   </style>
 </head>
 <body>
-  <div class="card">${bodyHtml}</div>
+  <div class="wrap">
+    <div class="brand-bar">
+      <div class="brand-mark">🍱</div>
+      <div class="wordmark">뭉<span class="g">살</span>흩<span class="r">죽</span></div>
+    </div>
+    <div class="card">${bodyHtml}</div>
+    <div class="foot">뭉치면 살고 · 흩어지면 죽는다</div>
+  </div>
 </body>
 </html>`;
+}
+
+// 응답/마감 화면 하단 → 대시보드 바로가기 (같은 서버이므로 상대경로)
+function dashboardButton() {
+  return `<a href="/" class="btn-dash">📊 대시보드에서 전체 현황 보기</a>`;
 }
 
 function getStatusList(lunchDayId) {
@@ -105,7 +130,7 @@ router.get('/', (req, res) => {
 
   db.prepare(`
     INSERT INTO responses (lunch_day_id, member_id, status, responded_at)
-    VALUES (?, ?, ?, datetime('now','localtime'))
+    VALUES (?, ?, ?, datetime('now','+9 hours'))
     ON CONFLICT(lunch_day_id, member_id) DO UPDATE SET
       status=excluded.status,
       responded_at=excluded.responded_at
@@ -135,14 +160,14 @@ router.post('/menu', express.urlencoded({ extended: false }), (req, res) => {
   if (info.day_type === 'friday') {
     db.prepare(`
       INSERT INTO responses (lunch_day_id, member_id, status, menu_suggestion, responded_at)
-      VALUES (?, ?, NULL, ?, datetime('now','localtime'))
+      VALUES (?, ?, NULL, ?, datetime('now','+9 hours'))
       ON CONFLICT(lunch_day_id, member_id) DO UPDATE SET
         menu_suggestion=excluded.menu_suggestion,
         responded_at=excluded.responded_at
     `).run(info.lunch_day_id, info.member_id, menuText || null);
   } else {
     db.prepare(`
-      UPDATE responses SET menu_suggestion=?, responded_at=datetime('now','localtime')
+      UPDATE responses SET menu_suggestion=?, responded_at=datetime('now','+9 hours')
       WHERE lunch_day_id=? AND member_id=?
     `).run(menuText || null, info.lunch_day_id, info.member_id);
   }
@@ -153,7 +178,7 @@ router.post('/menu', express.urlencoded({ extended: false }), (req, res) => {
 
 function buildConfirmedPage(info, action, statusList) {
   const isAttending = action === '참석';
-  const headerBg = isAttending ? '#22c55e' : '#ef4444';
+  const headerBg = isAttending ? '#1FA85A' : '#E54A4D';
   const icon = isAttending ? '✅' : '❌';
   const statusRows = statusList.map(s => {
     const badge = s.status === '참석'
@@ -181,8 +206,9 @@ function buildConfirmedPage(info, action, statusList) {
     </div>
     <div class="card-body">
       ${menuForm}
-      <p style="font-size:14px;font-weight:600;color:#374151;margin-top:20px;">현재 응답 현황</p>
+      <div class="sub-label">현재 응답 현황</div>
       <div class="status-list">${statusRows}</div>
+      ${dashboardButton()}
     </div>`;
 }
 
@@ -196,7 +222,7 @@ function buildFridayResponsePage(info, existing, statusList) {
   }).join('');
 
   return `
-    <div class="card-header" style="background:#f59e0b">
+    <div class="card-header" style="background:#FF7A3D">
       <h1>🎉 ${info.member_name}님, 메뉴를 추천해 주세요!</h1>
       <p>오늘은 금요일! 다 같이 먹는 날이에요.</p>
     </div>
@@ -209,8 +235,9 @@ function buildFridayResponsePage(info, existing, statusList) {
           <button type="submit" class="btn btn-amber">추천하기</button>
         </form>
       </div>
-      <p style="font-size:14px;font-weight:600;color:#374151;margin-top:20px;">현재 추천 현황</p>
+      <div class="sub-label">현재 추천 현황</div>
       <div class="status-list">${statusRows}</div>
+      ${dashboardButton()}
     </div>`;
 }
 
@@ -223,13 +250,14 @@ function buildMenuSavedPage(info, menu, statusList) {
   }).join('');
 
   return `
-    <div class="card-header" style="background:#22c55e">
+    <div class="card-header" style="background:#1FA85A">
       <h1>✅ 메뉴가 등록되었습니다!</h1>
       <p>${menu ? `"${escHtml(menu)}"` : '(추천 없음으로 저장)'}</p>
     </div>
     <div class="card-body">
-      <p style="font-size:14px;font-weight:600;color:#374151;margin-bottom:8px;">현재 현황</p>
+      <div class="sub-label" style="margin-top:0">현재 현황</div>
       <div class="status-list">${statusRows}</div>
+      ${dashboardButton()}
     </div>`;
 }
 
@@ -244,13 +272,14 @@ function buildClosedPage(info, statusList) {
   }).join('');
 
   return `
-    <div class="card-header" style="background:#6b7280">
+    <div class="card-header" style="background:#64748b">
       <h1>⏰ 마감되었습니다</h1>
       <p>오전 11시 이후에는 응답을 변경할 수 없습니다.</p>
     </div>
     <div class="card-body">
-      <p style="font-size:14px;font-weight:600;color:#374151;margin-bottom:8px;">오늘 최종 현황</p>
+      <div class="sub-label" style="margin-top:0">오늘 최종 현황</div>
       <div class="status-list">${statusRows}</div>
+      ${dashboardButton()}
     </div>`;
 }
 
