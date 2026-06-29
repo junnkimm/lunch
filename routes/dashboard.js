@@ -10,7 +10,8 @@ router.get('/today', (req, res) => {
     return res.json({ date: today, lunchDay: null, responses: [], members: [] });
   }
   const responses = db.prepare(`
-    SELECT m.name AS member_name, r.status, r.menu_suggestion, r.responded_at
+    SELECT m.name AS member_name, r.status, r.menu_suggestion,
+      datetime(r.responded_at, '+9 hours') AS responded_at   -- UTC 저장 → KST 표시
     FROM members m
     LEFT JOIN responses r ON r.member_id=m.id AND r.lunch_day_id=?
     ORDER BY m.id
@@ -45,7 +46,8 @@ router.get('/history/:date', (req, res) => {
   const lunchDay = db.prepare('SELECT * FROM lunch_days WHERE date=?').get(date);
   if (!lunchDay) return res.status(404).json({ error: '데이터 없음' });
   const responses = db.prepare(`
-    SELECT m.name AS member_name, r.status, r.menu_suggestion, r.responded_at
+    SELECT m.name AS member_name, r.status, r.menu_suggestion,
+      datetime(r.responded_at, '+9 hours') AS responded_at   -- UTC 저장 → KST 표시
     FROM members m
     LEFT JOIN responses r ON r.member_id=m.id AND r.lunch_day_id=?
     ORDER BY m.id

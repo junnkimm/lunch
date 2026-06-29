@@ -130,7 +130,7 @@ router.get('/', (req, res) => {
 
   db.prepare(`
     INSERT INTO responses (lunch_day_id, member_id, status, responded_at)
-    VALUES (?, ?, ?, datetime('now','+9 hours'))
+    VALUES (?, ?, ?, datetime('now'))
     ON CONFLICT(lunch_day_id, member_id) DO UPDATE SET
       status=excluded.status,
       responded_at=excluded.responded_at
@@ -160,14 +160,14 @@ router.post('/menu', express.urlencoded({ extended: false }), (req, res) => {
   if (info.day_type === 'friday') {
     db.prepare(`
       INSERT INTO responses (lunch_day_id, member_id, status, menu_suggestion, responded_at)
-      VALUES (?, ?, NULL, ?, datetime('now','+9 hours'))
+      VALUES (?, ?, NULL, ?, datetime('now'))
       ON CONFLICT(lunch_day_id, member_id) DO UPDATE SET
         menu_suggestion=excluded.menu_suggestion,
         responded_at=excluded.responded_at
     `).run(info.lunch_day_id, info.member_id, menuText || null);
   } else {
     db.prepare(`
-      UPDATE responses SET menu_suggestion=?, responded_at=datetime('now','+9 hours')
+      UPDATE responses SET menu_suggestion=?, responded_at=datetime('now')
       WHERE lunch_day_id=? AND member_id=?
     `).run(menuText || null, info.lunch_day_id, info.member_id);
   }
